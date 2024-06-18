@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bank System | [Geheimnis]</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+      var LOGIN = localStorage.getItem("login");
+      var IS_LOGGED_IN = localStorage.getItem("isLoggedIn");
+        
+        if (LOGIN && LOGIN !== "" && IS_LOGGED_IN === "true") {
+          window.location.replace("dashboard.html");
+        }
+    </script>
+</head>
+
+<body>
+    <div id="signup-wrapper">
+        <div class="signup-header">
+            <h2>Welcome to<h2>
+            <h1>Gehei<span class="mnis">mnis</span>' Bank!</h1>
+        </div>
+        
+        <form id="signup_form">
+            <span id="signup_alert"></span>
+            <div class="first-batch">
+                <div>
+                    <label class="email"  for="email">Email:</label>
+                        <input id="email" type="email" placeholder="Enter an email">
+                    <label class="complete-name" for="firstname">Firstname:</label>
+                        <input id="firstname" type="text" placeholder="Enter your firstname">
+                    <label for="password">Password:</label>
+                        <input  id="password" type="password">
+                </div>
+                <div>
+                    <label class="complete-name">Lastname:</label>
+                        <input id="lastname" type="text" placeholder="Enter your lastmame">
+                    <label class="about-self" for="fabout">About Yourself:</label>
+                        <textarea id="about_self"></textarea>
+                </div>
+            </div>
+            <div class="second-batch">
+              <div>
+                <label class="user-birthday" for="birthdate">Birthday:</label>
+                    <input id="birthdate" type="date" max="2006-12-31">
+              </div>
+              <div>
+                <button type="submit" id="create-acc">Create Account</button>
+                
+                <div class="has-account-wrapper">
+                  <p>Already have account?</p>
+                  <button onclick="loginBtn(event)">Login</button>
+                </div>
+              </div>
+            </div>
+        </form>
+    </div>
+    
+    <script src="js/Signup.js"></script>
+    
+    <script>
+        function loginBtn(event) {
+          event.preventDefault();
+            window.location.replace("login.html");
+        }
+    </script>
+</body>
+
+            </html>
