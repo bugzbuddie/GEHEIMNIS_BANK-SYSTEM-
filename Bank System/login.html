@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bank System | [Geheimnis]</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<script>
+      var LOGIN = localStorage.getItem("login");
+      var IS_LOGGED_IN = localStorage.getItem("isLoggedIn");
+      
+      if (LOGIN && LOGIN !== "" && IS_LOGGED_IN === "true") {
+        window.location.replace("dashboard.html");
+      }
+</script>
+
+<body>
+  <div id="login-form-wrapper">
+      <div>
+        <h2>Login to</h2>
+        <h1>Gehei<span class="mnis">mnis</span>' Bank</h1>
+      </div>
+      
+      <form id="login_form">
+        <div class="login-form">
+          <span id="login_alert"></span>
+          <label for="email">Email:</label>
+             <input type="email" placeholder="Enter your email" id="email" required>
+          <label for="password">Password:</label>
+             <input id="password" type="password" placeholder="Enter your password" required>
+          <button type="submit">Login</button>
+        </div>
+        <div class="no-acc-wrapper">
+          <span>No Account?</span>
+          <button onclick="gotoSignUp(event)">Sign Up</button>
+        </div>
+      </form>
+  </div>
+  
+  <script src="js/Login.js"></script>
+  <script>
+    function gotoSignUp(event) {
+      event.preventDefault();
+      window.location.replace("signup.html");
+    }
+  </script>
+</body>
+
+</html>
