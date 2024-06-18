@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Bank System | [Geheimnis]</title>
+    
+    <script src="https://kit.fontawesome.com/ea6442f428.js" crossorigin="anonymous"></script>
+    <script>
+      var LOGIN = localStorage.getItem("login");
+      var IS_LOGGED_IN = localStorage.getItem("isLoggedIn");
+        
+        if (LOGIN == null || LOGIN == "") {
+            window.location.replace("login.html");
+        } else {
+          if (IS_LOGGED_IN === "false") {
+            window.location.replace("login.html");
+          }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="overall-wrapper">
+    <header>
+        <div class="header-wrapper">
+            <span class="material-symbols-outlined" id="menu-btn">
+                menu
+            </span>
+            <h1>Gehei<span class="mnis">mnis</span>' Bank</h1>
+            <div>
+                <img src="images/bugz-prp.jpg" alt="">
+            </div>
+        </div>
+    </header>
+    
+    <div class="sidebar-container">
+        <aside>
+            <div class="logo">
+                <h1>Gehei<span class="mnis">mnis</span></h1>
+            </div>
+            
+            <div class="sidebar">
+                <a id="home" href="dashboard.html">
+                    <span class="material-symbols-outlined">
+                        home
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a id="deposit" href="deposit.html">
+                    <span class="material-symbols-outlined">
+                        view_sidebar
+                    </span>
+                    <h3>Deposit</h3>
+                </a>
+                <a id="withdraw" href="#" class="active">
+                    <span class="material-symbols-outlined">
+                        backup_table
+                    </span>
+                    <h3>Withdraw</h3>
+                </a>
+                <a id="logout" onclick="logout()">
+                    <span class="material-symbols-outlined">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
+      </div>
+        
+        <main>
+            <div class="balance-wrapper">
+                <!--<h2>Balance</h2>-->
+
+                <div class="balance-section">
+                    <div class="peso section">
+                        <div class="balance-sec-section">
+                            <div class="balance-text">
+                                <h4>Balance</h4>
+                                <span id="PESO_BALANCE">0.00</span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-peso-sign"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dollar section">
+                        <div class="balance-sec-section">
+                            <div class="balance-text">
+                                <h4>Balance</h4>
+                                <span id="DOLLAR_BALANCE">0.00</span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="savings-wrapper content">
+                    <div>
+                        <h2>Savings</h2>
+                        <span id="SAVINGS">
+                            <i class="fa-solid fa-peso-sign"></i>
+                            0
+                        </span>
+                    </div>
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path class="circle" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <svg viewBox="0 0 36 36" class="circular-chart2">
+                        <path id="PERCENTAGE_CIRCLE" class="circle2" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <span id="SAVINGS_PERCENTAGE" style="font-weight:800;color:#626262;font-size:1.3rem">0%</span>
+                </div>
+                
+                <div class="withdraw-wrapper middle-content">
+                  <div>
+                    <h2>Withdraw</h2>
+                    
+                    <div class="withdraw-form-wrapper">
+                      <span id="WITHDRAW_ERROR"></span>
+                      <div class="withdraw-balance-wrapper">
+                        <div class="withdraw-balance wrapper">
+                          <input id="withdraw-balance" type="number">
+                        </div>
+                        <div class="via-wrapper">
+                          <span>via</span>
+                        </div>
+                        <div class="via-system wrapper">
+                          <div>
+                            <input type="radio" id="visa-card" name="radio-group">
+                              <label class="card" for="visa-card">
+                                <i class="fa-brands fa-cc-visa"></i>
+                              </label>
+                            <input type="radio" id="credit-card" name="radio-group">
+                              <label class="card" for="credit-card">
+                                <i class="fa-solid fa-credit-card"></i>
+                              </label>
+                            <input type="radio" id="master-card" name="radio-group">
+                              <label class="card" for="master-card">
+                                <i class="fa-brands fa-cc-mastercard"></i>
+                              </label>
+                            <input type="radio" id="paypal" name="radio-group">
+                              <label class="card" for="paypal">
+                                <i class="fa-brands fa-cc-paypal"></i>
+                              </label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="withdraw-confirmation-wrapper">
+                        <div class="withdraw-button">
+                          <button id="withdraw-btn">Withdraw</button>
+                        </div>
+                        <div class="withdraw-process">
+                          <span id="withdraw-process"></span>
+                          <div id="progress">
+                            <div id="progress-bar"></div>
+                            <span id="indicator"></span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="user-profile-wrapper content">
+                    <div class="prp-info-wrapper header-prp">
+                      <img src="images/circle-user-regular.svg" />
+                      <div class="the-name">
+                        <p id="USER_NAME">Bugz Buddie</p>
+                      </div>
+                    </div>
+                    
+                    <div class="user-info-wrapper body">
+                        <div class="user-id">
+                            <span id="USER_ID">#uid-w928dkw2</span>
+                        </div>
+                        <div class="user-birthday">
+                            <p>Birthday</p>
+                            <p id="USER_BIRTHDATE">August 2, 2006</p>
+                        </div>
+                        <div class="user-about-wrapper">
+                            <h4>About</h4>
+                            <div class="user-about">
+                                <p id="ABOUT_SELF">suscipit dicit doctus deseruisse saperet conubia veniam scripserittincidunt intellegebat theophrastus aliquam tristique prodesset arcu semper</p>
+                            </div>
+                        </div>
+                        
+                        <div class="acc-created-date">
+                            <p>Account Created</p>
+                            <p id="ACCOUNT_CREATED">May 11, 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="window-wrapper">
+              <div class="window-holder">
+                <div class="info-save-button">
+                  <ul class="window-name">
+                    <li class="window-save">
+                      <button id="window-save" style="font-size:20px"><i class="fa-solid fa-check"></i></button>
+                    </li>
+                    <li>profile</li>
+                    <span class="save-text">Save</span>
+                  </ul>
+                  
+                  <ul class="window-error">
+                    <li id="window-error"></li>
+                  </ul>
+                  
+                  <ul class="window-button">
+                    <li class="window-minimize">
+                      <button id="window-minimize" style="font-size:20px"><i class="fa-solid fa-window-minimize"></i></button>
+                    </li>
+                    <li class="window-close">
+                      <button id="window-close" style="font-size:20px"><i class="fa-solid fa-xmark"></i></button>
+                    </li>
+                    <span class="minimize-text">Minimize</span>
+                    <span class="close-text">Close</span>
+                  </ul>
+                </div>
+                <div id="edit-profile-wrapper">
+                  <div class="upper-profile">
+                    <div class="upper-first">
+                      <img id="user-profile-img" src="images/QR_code.png">
+                    </div>
+                    
+                    <div class="upper-second">
+                      <div id="edit-name-form">
+                        <input type="text" id="firstname" name="firstname">
+                        <input type="text" id="lastname" name="lastname">
+                      </div>
+                      <span id="user-id"></span>
+                    </div>
+                    
+                    <div class="upper-third">
+                      <div id="info-birthdate">
+                        <span>birthday:</span>
+                        <span id="profile-birthdate"></span>
+                      </div>
+                      <div id="info-account_created">
+                        <span>account created:</span>
+                        <span id="profile-account-created"></span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="lower-profile">
+                    <div class="lower-first">
+                      <label for="about-self">About</label>
+                      <textarea name="about-self" id="about-self" placeholder="Leave a note..."></textarea>
+                    </div>
+                    <div class="lower-second">
+                      <div class="info-balance-wrapper">
+                        <div>
+                          <div class="info-balance">
+                            <div>
+                              <h4>Balance</h4>
+                              <span id="profile-peso-balance">0.00</span>
+                            </div>
+                            <div>
+                              <i class="fa-solid fa-peso-sign"></i>
+                            </div>
+                          </div>
+                        </div>
+                          
+                        <div>
+                          <div class="info-balance">
+                            <div>
+                              <h4>Balance</h4>
+                              <span id="profile-dollar-balance">0.00</span>
+                            </div>
+                            <div>
+                              <i class="fa-solid fa-peso-sign"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                        
+                      <div class="info-savings-wrapper">
+                        <div class="info-savings-icon">
+                          <svg class="piggy-bank" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve">
+                            <linearGradient id="piggy-fill" x1="0" y1="0%" x2="0" y2="198%">
+                              <stop offset="50%" stop-color="white"/>
+                              <stop offset="50%" stop-color="brown"/>
+                            </linearGradient>
+                            <g><path stroke="maroon" stroke-width="2" fill="url(#piggy-fill)" d="M11.3,60.7c0,9.8,4.5,18.6,11.6,24.4c1.5,1.2,2.3,3,2.3,4.9v5.3c0,1.1,0.9,2.1,2.1,2.1h12.5c1.1,0,2.1-0.9,2.1-2.1v-3.2   c0.3,0,0.6,0,0.9,0h8.9c0.1,0,0.1,0,0.2,0v3.2c0,1.1,0.9,2.1,2.1,2.1h12.5c1.1,0,2.1-0.9,2.1-2.1v-4.8c0-1.9,0.9-3.8,2.4-4.9   c5.3-4.1,9.3-10,11.1-16.7c0.9,0.3,1.8,0.4,2.8,0.1c2.4-0.6,4-2.8,4-5.2v-6.2c0-2.5-1.6-4.7-4-5.2c-1-0.2-2-0.2-2.8,0.1   c-1.7-6.3-5.3-11.8-10.2-15.9c-0.8-3.3,0.4-6.4,1.8-8.6c1-1.6-0.3-3.7-2.2-3.5c-5.7,0.7-9,3.3-10.9,5.7   C56.7,36.4,50,40.5,42.4,40.5c-6.2,0-11.7-2.7-15.5-7C17.5,39,11.3,49.1,11.3,60.7z M69.3,46.6c1.7,0,3.1,1.4,3.1,3.1   s-1.4,3.1-3.1,3.1s-3.1-1.4-3.1-3.1S67.6,46.6,69.3,46.6z M25.4,19.7c0,9.4,7.6,17,17,17c9.4,0,17-7.6,17-17c0-9.4-7.6-17-17-17   c-4.9,0-9.3,2.1-12.4,5.4C27.1,11.1,25.4,15.2,25.4,19.7z M36.5,26.4c0.2-0.6,0.3-1.1,0.5-1.7c0.2-0.6,0.4-0.7,1-0.4   c1,0.5,2.1,0.8,3.2,1c0.7,0.1,1.4,0,2.1-0.3c1.3-0.5,1.4-2,0.4-2.9c-0.4-0.3-0.8-0.5-1.2-0.7c-1.1-0.5-2.2-0.9-3.3-1.5   c-1.7-1-2.7-2.4-2.6-4.4c0.1-2.3,1.4-3.8,3.6-4.5C41,10.7,41,10.7,41,9.8c0-0.3,0-0.6,0-0.9c0-0.7,0.1-0.8,0.8-0.8   c0.2,0,0.4,0,0.6,0c1.5,0,1.5,0,1.5,1.5c0,1,0,1,1,1.2c0.8,0.1,1.5,0.4,2.3,0.7c0.4,0.2,0.6,0.5,0.4,0.9c-0.2,0.6-0.4,1.3-0.6,1.9   c-0.2,0.6-0.4,0.7-0.9,0.4c-1.1-0.6-2.3-0.8-3.6-0.7c-0.3,0-0.7,0.1-1,0.2c-1.1,0.5-1.3,1.7-0.3,2.4c0.5,0.4,1,0.6,1.6,0.9   c1,0.4,1.9,0.8,2.9,1.3c2.9,1.6,3.7,5.3,1.6,7.8c-0.7,0.9-1.7,1.5-2.8,1.8c-0.5,0.1-0.7,0.4-0.7,0.9c0,0.5,0,1,0,1.5   c0,0.4-0.2,0.7-0.7,0.7c-0.5,0-1.1,0-1.6,0c-0.5,0-0.7-0.3-0.7-0.7c0-0.4,0-0.7,0-1.1c0-0.8,0-0.8-0.8-1c-1-0.2-2-0.4-2.9-0.8   C36.3,27.3,36.3,27.2,36.5,26.4z"/></g>
+                          </svg>
+                        <span id="piggy-indicator">0%</span>
+                      </div>
+                      <div class="info-savings-text">
+                        <div>
+                          <span style="display:block;text-align:ceter">current savings</span>
+                          <span id="info-savings-text">₱0.00</span>
+                        </div>
+                        <div id="profile-savings-limit">
+                          <svg style="margin-top:-8px;margin-left:5px" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="red"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+                          <span style="font-size:12px;margin-left:2px">Your savings has reached the total limit of ₱10,000</span>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+            
+        </main>
+    
+    </div>
+    
+    <script src="js/script.js"></script>
+    <script src="js/window.js"></script>
+    <script src="js/Withdraw.js"></script>
+    
+  </body>
+</html> 
