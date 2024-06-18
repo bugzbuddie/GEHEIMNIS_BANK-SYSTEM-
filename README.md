@@ -7,7 +7,5 @@
 
 The project was developed by a simple `html`, `css` and `javascript`.
 
-```
 Note:
 > I was so lazy that it took me a lot of time to finished T^T
-```
